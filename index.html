@@ -34,6 +34,8 @@
     let rightPressed = false,
         leftPressed = false;
 
+    let score = 0;
+
     // bricks params
     const bricks = [],
         brickRowCount = 3,
@@ -84,10 +86,22 @@
                     if (x > b.x && x < b.x+brickWidth && y > b.y && y < b.y+brickHeight ) {
                         dy = -dy;
                         b.status = 0;
+                        score++;
+
+                        if (score === brickRowCount*brickColumnCount) {
+                            alert('You WIN!!!');
+                            document.location.reload();
+                        }
                     }
                 }
             }
         }
+    }
+
+    function drawscore() {
+        ctx.font = '16px Arial';
+        ctx.fillStyle = '#0095DD';
+        ctx.fillText('Score: '+score, 8, 20);
     }
 
     document.addEventListener("keydown", keyDownHandler, false);
@@ -160,6 +174,7 @@
         y +=dy;
 
         drawPaddle();
+        drawscore();
     }
 
     let interval = setInterval(draw, 10);
