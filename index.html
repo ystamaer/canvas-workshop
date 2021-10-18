@@ -34,7 +34,8 @@
     let rightPressed = false,
         leftPressed = false;
 
-    let score = 0;
+    let score = 0,
+        lives = 3;
 
     // bricks params
     const bricks = [],
@@ -104,6 +105,12 @@
         ctx.fillText('Score: '+score, 8, 20);
     }
 
+    function drawLives() {
+        ctx.font = '16px Arial';
+        ctx.fillStyle = '#0095DD';
+        ctx.fillText('Lives: '+lives, canvas.width - 65, 20);
+    }
+
     document.addEventListener("keydown", keyDownHandler, false);
     document.addEventListener("keyup", keyUpHandler, false);
     document.addEventListener("mousemove", mouseMoveHandler, false);
@@ -163,9 +170,18 @@
             if (x > paddleX && x < paddleX + paddleWidth) {
                 dy = -dy;
             } else {
-                // alert('GAME OVER');
-                document.location.reload();
-                clearInterval();
+                // clearInterval(interval);
+                lives--;
+                if (!lives) {
+                    // alert('GAME OVER');
+                    document.location.reload();
+                } else {
+                    x = canvas.width/2;
+                    y = canvas.height-30;
+                    dx = 2;
+                    dy = -2;
+                    paddleX = (canvas.width - paddleWidth) / 2;
+                }
             }
         }
 
@@ -183,6 +199,7 @@
 
         drawPaddle();
         drawscore();
+        drawLives();
     }
 
     let interval = setInterval(draw, 10);
