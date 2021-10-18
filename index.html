@@ -159,6 +159,9 @@
         drawBricks();
         drawBall();
         collisionDetection();
+        drawPaddle();
+        drawscore();
+        drawLives();
 
         if ((x + dx) > canvas.width - ballRadius || (x + dx) < ballRadius) {
             dx = -dx;
@@ -197,12 +200,11 @@
         x +=dx;
         y +=dy;
 
-        drawPaddle();
-        drawscore();
-        drawLives();
+        requestAnimationFrame(draw);
     }
 
-    let interval = setInterval(draw, 10);
+    // let interval = setInterval(draw, 10);
+    draw();
 
 </script>
 
